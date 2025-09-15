@@ -19,130 +19,136 @@ import { useState } from "react";
 import { Divider, Drawer, Paper } from "@mui/material";
 import { Assessment, Create, HowToVote } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { useAuth } from "../pages/auth/AuthContext";
 
 const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    "&:hover": {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3),
-        width: "auto",
-    },
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
-    "& .MuiInputBase-input": {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create("width"),
-        width: "100%",
-        [theme.breakpoints.up("md")]: {
-            width: "20ch",
-        },
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
     },
+  },
 }));
 
 export default function Appbar() {
-    const [open, setOpen] = useState();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [open, setOpen] = useState();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const { creator } = useAuth();
 
-    const links = [
-        {
-            text: "Create Ballot",
-            link: "/ballot",
-            
-            Icon: <Create />,
-        },
-        {
-            text: "Voting",
-            link: "/voting",
-            Icon: <HowToVote />,
-        },
-        {
-            text: "Result",
-            link: "/result",
-            Icon: <Assessment />,
-        },
-    ];
+  const links = [
+    {
+      text: "Voting",
+      link: "/voting",
+      Icon: <HowToVote />,
+    },
+    {
+      text: "Result",
+      link: "/result",
+      Icon: <Assessment />,
+    },
+  ];
 
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  if (creator === true) {
+    links.push({
+      text: "Create Ballot",
+      link: "/ballot",
 
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+      Icon: <Create />,
+    });
+  }
 
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
 
-    const menuId = "primary-search-account-menu";
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    );
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
 
-    const mobileMenuId = "primary-search-account-menu-mobile";
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        >
-            {/* <MenuItem>
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const menuId = "primary-search-account-menu";
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    </Menu>
+  );
+
+  const mobileMenuId = "primary-search-account-menu-mobile";
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      {/* <MenuItem>
                 <IconButton size="large" aria-label="new mails" color="inherit">
                     <Badge badgeContent={0} color="error">
                         <MailIcon />
@@ -170,47 +176,63 @@ export default function Appbar() {
                 </IconButton>
                 <p>Profile</p>
             </MenuItem> */}
-        </Menu>
-    );
+    </Menu>
+  );
 
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="relative">
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2, cursor: "pointer" }}
-                        onClick={() => setOpen(!open)}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <NavLink to="/">
-                        <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} color="white">
-                            The Voting App
-                        </Typography>
-                    </NavLink>
-                    {/* <Search>
+  return (
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="relative">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2, cursor: "pointer" }}
+              onClick={() => setOpen(!open)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <NavLink to="/">
+              <Typography
+                variant="h6"
+                sx={{ display: { xs: "none", sm: "block" } }}
+                color="white"
+              >
+                The Voting App
+              </Typography>
+            </NavLink>
+            {/* <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
                     </Search> */}
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                        {/* <IconButton size="large" aria-label="new mails" color="inherit">
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              {/* <IconButton size="large" aria-label="new mails" color="inherit">
                             <Badge badgeContent={0} color="error">
                                 <MailIcon />
                             </Badge>
                         </IconButton> */}
-                        {/* <IconButton size="large" aria-label="new notifications" color="inherit">
+              {/* <IconButton size="large" aria-label="new notifications" color="inherit">
                             <Badge badgeContent={0} color="error">
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton> */}
-                        {/* <IconButton
+              {/* <IconButton
                             size="large"
                             edge="end"
                             aria-label="account of current user"
@@ -221,60 +243,70 @@ export default function Appbar() {
                         >
                             <AccountCircle />
                         </IconButton> */}
-                    </Box>
-                    <Box sx={{ display: { xs: "flex", md: "none" } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
-                    </Box>
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
+            </Box>
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
 
-            <Drawer anchor="left" open={open} onClose={() => setOpen(!open)}>
-                <Box sx={{ width: "300px", marginTop: "2rem" }}>
-                    <Box mb={3}>
-                        <NavLink to="/" onClick={() => setOpen(!open)}>
-                            <Typography variant="h4" fontWeight="bold" style={{ color: "#5ac8fa" }} textAlign="center">
-                                TVA
-                            </Typography>
-                        </NavLink>
-                    </Box>
-                    <Divider />
-                    <Box>
-                        {links?.map((val, ind) => {
-                            return (
-                                <Paper
-                                    sx={{
-                                        paddingY: "1.25rem",
-                                        paddingLeft: "2rem",
-                                    }}
-                                    key={ind}
-                                >
-                                    <NavLink to={val?.link} style={{ color: "#007aff" }} onClick={() => setOpen(!open)}>
-                                        <Box display="flex" justifyContent="flex-left">
-                                            <Box mr={2} display="flex" alignItems="center">
-                                                {val?.Icon}
-                                            </Box>
-                                            <Typography variant="h6" fontWeight="bold">
-                                                {val?.text}
-                                            </Typography>
-                                        </Box>
-                                    </NavLink>
-                                </Paper>
-                            );
-                        })}
-                    </Box>
-                </Box>
-            </Drawer>
-        </Box>
-    );
+        <Drawer anchor="left" open={open} onClose={() => setOpen(!open)}>
+          <Box sx={{ width: "300px", marginTop: "2rem" }}>
+            <Box mb={3}>
+              <NavLink to="/" onClick={() => setOpen(!open)}>
+                <Typography
+                  variant="h4"
+                  fontWeight="bold"
+                  style={{ color: "#5ac8fa" }}
+                  textAlign="center"
+                >
+                  TVA
+                </Typography>
+              </NavLink>
+            </Box>
+            <Divider />
+            <Box>
+              {links?.map((val, ind) => {
+                return (
+                  <Paper
+                    sx={{
+                      paddingY: "1.25rem",
+                      paddingLeft: "2rem",
+                    }}
+                    key={ind}
+                  >
+                    <NavLink
+                      to={val?.link}
+                      style={{ color: "#007aff" }}
+                      onClick={() => setOpen(!open)}
+                    >
+                      <Box display="flex" justifyContent="flex-left">
+                        <Box mr={2} display="flex" alignItems="center">
+                          {val?.Icon}
+                        </Box>
+                        <Typography variant="h6" fontWeight="bold">
+                          {val?.text}
+                        </Typography>
+                      </Box>
+                    </NavLink>
+                  </Paper>
+                );
+              })}
+            </Box>
+          </Box>
+        </Drawer>
+      </Box>
+    </>
+  );
 }

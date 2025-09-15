@@ -1,8 +1,9 @@
 *,
 html,
 body {
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
 }
 
 a {
@@ -12,6 +13,7 @@ a {
 .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
     margin-top: 4rem;
 }
+
 .css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop {
     background-color: transparent !important;
 }
@@ -24,11 +26,13 @@ a {
 * {
     box-sizing: border-box;
 }
+
 body {
     display: grid;
     place-content: center;
     grid-template-columns: 100%;
 }
+
 /* .wrapper {
     background-image: url(../High\ Quality\ image.jpg);
     background-color: rgba(88, 86, 86, 0.779);
@@ -89,6 +93,7 @@ body {
     0% {
         background-color: rgba(88, 86, 86, 0.2);
     }
+
     100% {
         background-color: rgba(20, 20, 20, 0.8);
     }
@@ -99,6 +104,7 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -115,7 +121,8 @@ body {
 
     position: relative;
     width: 100%;
-    height: 100%; /* full viewport */
+    height: 100%;
+    /* full viewport */
     padding-block-end: 2rem;
     padding-inline: 2rem;
     overflow-x: clip;
@@ -137,7 +144,7 @@ body {
     inset: 0;
     display: grid;
     place-content: center;
-   
+
 
     opacity: 0;
     animation: textAppear 2s ease-out 1.5s forwards;
@@ -180,6 +187,7 @@ body {
         opacity: 0;
         transform: translateY(30px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
