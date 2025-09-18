@@ -5,6 +5,7 @@ import Web3 from "web3";
 import { Routes, Route } from "react-router-dom";
 import { Backdrop, Box, CircularProgress } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
+import AdminPanel from "../src/pages/auth/AdminPanel.jsx";
 
 // import { ABI } from "./data/Data";
 import VotingContract from "./build/Voting.json";
@@ -198,6 +199,7 @@ const App = () => {
       {isBG && <Appbar />}
       <Routes>
         <Route path="/login" element={<EIDLogin />} />
+         <Route path="/admin" element={<AdminPanel />} />
         <Route
           path="/"
           element={

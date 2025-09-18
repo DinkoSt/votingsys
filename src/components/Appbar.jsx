@@ -17,7 +17,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
 import { Divider, Drawer, Paper } from "@mui/material";
-import { Assessment, Create, HowToVote } from "@mui/icons-material";
+import { Assessment, Create, HowToVote, } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "../pages/auth/AuthContext";
@@ -69,20 +69,27 @@ export default function Appbar() {
 
   const links = [
     {
-      text: "Voting",
+      text: "Гласувай",
       link: "/voting",
       Icon: <HowToVote />,
     },
     {
-      text: "Result",
+      text: "Преглед на резултати",
       link: "/result",
       Icon: <Assessment />,
     },
+    {
+      text: "Транзакции",
+      link: "/transactions",
+      Icon: <SearchIcon />,
+    },
   ];
+
+   
 
   if (creator === true) {
     links.push({
-      text: "Create Ballot",
+      text: "Създаване на бюлетина",
       link: "/ballot",
 
       Icon: <Create />,
@@ -211,7 +218,7 @@ export default function Appbar() {
                 sx={{ display: { xs: "none", sm: "block" } }}
                 color="white"
               >
-                The Voting App
+                Блокчейн система за гласуване
               </Typography>
             </NavLink>
             {/* <Search>
@@ -266,12 +273,12 @@ export default function Appbar() {
             <Box mb={3}>
               <NavLink to="/" onClick={() => setOpen(!open)}>
                 <Typography
-                  variant="h4"
+                  variant="h5"
                   fontWeight="bold"
                   style={{ color: "#5ac8fa" }}
                   textAlign="center"
                 >
-                  TVA
+                  Начална страница
                 </Typography>
               </NavLink>
             </Box>

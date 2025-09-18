@@ -26,10 +26,11 @@ const Home = () => {
       flexDirection="column"
       alignItems="center"
       width="100%"
+      minHeight="100vh" // центрира по цялата височина на екрана
     >
       <Box className="wrapper">
         <Box className="glow" data-text="Glow">
-          {/* Your Choice Matters */}
+          Сигурност. Децентрализация. Блокчейн.
         </Box>
         <Box
           className="link-section"
@@ -40,16 +41,19 @@ const Home = () => {
           mt={10}
         >
           <Box className="link-box" component="a" href="/voting">
-            Vote
+            Гласувай
           </Box>
           {creator &
           (
             <Box className="link-box" component="a" href="/ballot">
-              Create Ballot
+              Създаване на избори
             </Box>
           )}
           <Box className="link-box" component="a" href="/result">
-            Result
+            Преглед на резултати
+          </Box>
+           <Box className="link-box" component="a" href="/transactions">
+            Провери глас
           </Box>
         </Box>
       </Box>

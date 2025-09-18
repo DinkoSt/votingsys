@@ -28,16 +28,32 @@ export default function EIDLogin() {
     }
   }, [isBG, navigate]);
 
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setErr("");
+  //   try {
+  //     await loginWithEID(form);
+  //     window.location.href = "/"; // към страницата за гласуване
+  //   } catch (e) {
+  //     setErr(e.message);
+  //   }
+  // };
   const onSubmit = async (e) => {
-    e.preventDefault();
-    setErr("");
-    try {
-      await loginWithEID(form);
-      window.location.href = "/"; // към страницата за гласуване
-    } catch (e) {
-      setErr(e.message);
+  e.preventDefault();
+  setErr("");
+  try {
+    const token = await loginWithEID(form);
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    if (payload.creator) {
+      navigate("/admin", { replace: true });
+    } else {
+      window.location.href = "/"; // към voting системата
     }
-  };
+  } catch (e) {
+    setErr(e.message);
+  }
+};
+
 
   return (
     <Box
@@ -128,6 +144,15 @@ export default function EIDLogin() {
             sx={{ mt: 3, borderRadius: 2 }}
           >
             Вход
+          </Button>
+           <Button
+            type="submit"
+            variant="contained"
+            size="large"
+            fullWidth
+            sx={{ mt: 0, borderRadius: 2 }}
+          >
+            Вход като гост
           </Button>
         </Stack>
       </Paper>

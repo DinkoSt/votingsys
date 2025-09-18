@@ -3,7 +3,7 @@ html,
 body {
     margin: 0px;
     padding: 0px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 a {
@@ -113,6 +113,7 @@ body {
 
 .wrapper {
     background-image: url(../High\ Quality\ image.jpg);
+    /* background-image: url(../public/Vote2.jpg); */
     background-color: rgba(88, 86, 86, 0.779);
     background-blend-mode: overlay;
 

@@ -147,8 +147,8 @@ const Create = ({
           <Box my={2}>
             <Paper sx={{ padding: "0.6rem" }}>
               <Alert severity="success">
-                Voting has started. <NavLink to="/voting">Click here</NavLink>{" "}
-                to vote.{" "}
+                Гласуването започна! <NavLink to="/voting">Админ страница</NavLink>{" "}
+                {" "}
               </Alert>
             </Paper>
           </Box>
@@ -157,13 +157,13 @@ const Create = ({
           <Paper>
             <Box py={1}>
               <Typography variant="h4" fontWeight="bold" textAlign="center">
-                Create Ballot
+                Създаване на бюлетина
               </Typography>
             </Box>
             <Divider />
             <Box margin={2} paddingY={2}>
               {isAlreadyCreated && (
-                <Alert severity="success">Ballot already created.</Alert>
+                <Alert severity="success">Бюлетината е създадена успешно</Alert>
               )}
               <form onSubmit={onCreateBallot}>
                 <Box my={2}>
@@ -171,7 +171,7 @@ const Create = ({
                     value={ballot.name}
                     name="name"
                     id="outlined-basic"
-                    label="Ballot Name"
+                    label="Име на бюлетина"
                     variant="outlined"
                     onChange={(e) =>
                       setBallot({ ...ballot, name: e.target.value })
@@ -184,7 +184,7 @@ const Create = ({
                     value={ballot.proposal}
                     name="proposal"
                     id="outlined-basic"
-                    label="Proposal"
+                    label="Предложение"
                     variant="outlined"
                     onChange={(e) =>
                       setBallot({ ...ballot, proposal: e.target.value })
@@ -195,13 +195,13 @@ const Create = ({
                 {localStorage.getItem("CONTRACT") && (
                   <Box my={2}>
                     <Alert>
-                      Contract Address: {localStorage.getItem("CONTRACT")}
+                      Адрес на договора: {localStorage.getItem("CONTRACT")}
                     </Alert>
                   </Box>
                 )}
                 <Box>
                   <Button variant="contained" type="submit" fullWidth>
-                    Create Ballot
+                    Създаване на бюлетина
                   </Button>
                 </Box>
               </form>
@@ -213,7 +213,7 @@ const Create = ({
             <Paper>
               <Box py={1}>
                 <Typography variant="h4" fontWeight="bold" textAlign="center">
-                  Add Choices
+                  Добави избор
                 </Typography>
               </Box>
               <Divider />
@@ -244,7 +244,7 @@ const Create = ({
                       disabled={disable || state === 1}
                       sx={{ minWidth: "16rem", height: "100%" }}
                     >
-                      Add Choice
+                      Добави избор
                     </Button>
                   </Box>
                 </form>
@@ -290,7 +290,7 @@ const Create = ({
                       {totalVoters} are already registered.
                     </Alert>
                   ) : (
-                    <Alert severity="warning">No voter has been added.</Alert>
+                    <Alert severity="warning">Не е добавен гласуващ.</Alert>
                   )}
                 </Box>
                 <Divider />
@@ -352,7 +352,7 @@ const Create = ({
                 }
                 onClick={startVoting}
               >
-                Start Voting
+                Стартиране на гласуването
               </Button>
             </Paper>
           </Box>
